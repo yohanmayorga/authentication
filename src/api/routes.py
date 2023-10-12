@@ -14,8 +14,9 @@ def create_user():
     body = request.get_json()
     email = body.get("email", None)
     password = body.get("password", None)
+    is_active = body.get("is_active", None)
 
-    new_user = User(email=email, password=password)
+    new_user = User(email=email, password=password, is_active=is_active)
     db.session.add(new_user)
     db.session.commit()
 

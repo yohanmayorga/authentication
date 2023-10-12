@@ -31,7 +31,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						})
 					const data = await resp.json()
 					setStore({ "user": data.user })
-					console.log("todo bien")
 					return true
 
 				} catch (error) {

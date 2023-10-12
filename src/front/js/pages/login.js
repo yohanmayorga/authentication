@@ -9,6 +9,7 @@ export const Login = () => {
                 email: "",
                 password: "",
                 password_check: "",
+                is_active: true
         });
 
         const { store, actions } = useContext(Context);
@@ -16,15 +17,12 @@ export const Login = () => {
         async function addUser() {
                 if (user.password == user.password_check) {
                         let created = await actions.createUser(user);
-                        if (created) {
-                                console.log("Todo bien")
-                        }
                 }
                 else {
                         console.log("error")
                 }
         }
-
+        
         return (
                 <form className="Login">
 
