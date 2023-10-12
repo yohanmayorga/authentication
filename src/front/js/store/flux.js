@@ -2,6 +2,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			message: null,
+			user: null,
 			demo: [
 				{
 					title: "FIRST",
@@ -17,19 +18,43 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
+
+			createUser: async (user) => {
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/api/accounts/create",
+						{
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							body: JSON.stringify(user)
+						})
+					const data = await resp.json()
+					setStore({ "user": data.user })
+					console.log("todo bien")
+					return true
+
+				} catch (error) {
+					return false
+				}
+			},
+
+
+
+
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
 
 			getMessage: async () => {
-				try{
+				try {
 					// fetching data from the backend
 					const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
 					const data = await resp.json()
 					setStore({ message: data.message })
 					// don't forget to return something, that is how the async resolves
 					return data;
-				}catch(error){
+				} catch (error) {
 					console.log("Error loading message from backend", error)
 				}
 			},
