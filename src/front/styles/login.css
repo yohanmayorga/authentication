@@ -4,3 +4,12 @@
     width: 30%;
     margin: auto;
 }
+
+.Form {
+    display: flex;
+    flex-direction: column;
+}
+
+.FormButton {
+    width: 50%;
+}
