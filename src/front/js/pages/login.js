@@ -34,8 +34,7 @@ export const Login = () => {
                         </div>
                         <form className="Form">
 
-                                <label for="email">Email: </label>
-                                <input
+                                <input className="enterForm"
                                         type="text"
                                         name="email"
                                         id="email"
@@ -44,8 +43,7 @@ export const Login = () => {
                                         required
                                 />
 
-                                <label for="password">Password: </label>
-                                <input
+                                <input className="enterForm"
                                         type="password"
                                         name="password"
                                         id="password"
@@ -54,19 +52,16 @@ export const Login = () => {
                                         required />
 
                                 {isShow && (
-                                        <>
-                                                <label for="password_check">Repeat Password: </label>
-                                                <input
-                                                        type="password"
-                                                        name="password_check"
-                                                        id="password_check"
-                                                        placeholder="Repeat Password"
-                                                        onChange={(e) => setUser({ ...user, password_check: e.target.value })}
-                                                        required />
-                                        </>
+                                        <input className="enterForm"
+                                                type="password"
+                                                name="password_check"
+                                                id="password_check"
+                                                placeholder="Repeat Password"
+                                                onChange={(e) => setUser({ ...user, password_check: e.target.value })}
+                                                required />
                                 )}
 
-                                <input type="submit" value={!isShow ? "Login" : "Sign up"} onClick={() => addUser()} />
+                                <input className="SendButton" type="submit" value={!isShow ? "Login" : "Sign up"} onClick={() => addUser()} />
                         </form>
                 </div>
         )

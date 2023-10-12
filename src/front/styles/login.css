@@ -10,6 +10,55 @@
     flex-direction: column;
 }
 
-.FormButton {
+.FormButton  {
     width: 50%;
+	box-shadow: 0px 0px 0px -50px #9fb4f2;
+	background:linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
+	background-color:#7892c2;
+	border-radius:5px;
+	border:1px solid #4e6096;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	padding:12px 37px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #283966;
+    margin-bottom: 15px;
+}
+.FormButton:hover {
+	background:linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
+	background-color:#476e9e;
+}
+.FormButton:active {
+	position:relative;
+	top:1px;
+}
+
+.SendButton  {
+	box-shadow: 0px 0px 0px -50px #9fb4f2;
+	background:linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
+	background-color:#7892c2;
+	border-radius:5px;
+	border:1px solid #4e6096;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	padding:12px 37px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #283966;
+}
+.SendButton:hover {
+	background:linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
+	background-color:#476e9e;
+}
+.SendButton:active {
+	position:relative;
+	top:1px;
+}
+
+.enterForm {
+    margin-bottom: 15px;
+    font-size: 20px;
+    border-radius: 5px;
+    border-width: thin;
 }
