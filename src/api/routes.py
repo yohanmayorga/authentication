@@ -16,8 +16,13 @@ def create_user():
     email = body.get("email", None)
     password = body.get("password", None)
     is_active = body.get("is_active", None)
+    bpassword = bytes(password, 'utf-8')
+    salt = bcrypt.gensalt(14)
 
-    new_user = User(email=email, password=password, is_active=is_active)
+    hashed_password = bcrypt.hashpw(password=bpassword, salt=salt)
+
+    new_user = User(email=email, password=hashed_password.decode(
+        'utf-8'), salt=salt, is_active=is_active)
     db.session.add(new_user)
     db.session.commit()
 
