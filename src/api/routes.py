@@ -4,6 +4,9 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
 import bcrypt
 
 api = Blueprint('api', __name__)
@@ -27,6 +30,22 @@ def create_user():
     db.session.commit()
 
     return {"user": new_user.serialize()}, 200
+
+
+@api.route('/token', methods=['POST'])
+def create_token():
+    email = request.json.get('email', None)
+    password = request.json.get('password', None)
+    if email is None or password is None:
+        return {'message': 'parameters missing'}, 400
+    user = User.query.filter_by(email=email).one_or_none()
+    if user is None:
+        return {'message': "user doesn't exist"}, 400
+    password_byte = bytes(password, 'utf-8')
+    # hash_password = bcrypt.hashpw(password_byte)
+    if bcrypt.checkpw(password_byte, user.password.encode('utf-8')):
+        return {'token': create_access_token(identity=user.email)}, 200
+    return {'message': 'you shall no pass'}, 501
 
 
 @api.route('/hello', methods=['POST', 'GET'])
