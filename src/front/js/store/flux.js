@@ -51,9 +51,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 							body: JSON.stringify({ email, password })
 						})
 					const data = await resp.json()
+					console.log(data)
+
 					localStorage.setItem("token", data.token)
 					setStore({ token: data.token })
-					getActions().getProfile()
+					//getActions().getProfile()
+
 					return true;
 				} catch (error) {
 					return false
@@ -63,7 +66,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getProfile: async () => {
 				let store = getStore()
 
-				if (!store.token) return console.log("no hay token")
+				if (!store.token) {
+					return false
+				}
 				try {
 					const resp = await fetch(process.env.BACKEND_URL + "/api/profile",
 						{
@@ -75,6 +80,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						})
 					const data = await resp.json()
 					setStore({ profile: data })
+					console.log(data)
 				} catch (error) {
 					showError()
 				}

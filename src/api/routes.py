@@ -8,6 +8,7 @@ from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 import bcrypt
+from datetime import timedelta
 
 api = Blueprint('api', __name__)
 
@@ -44,7 +45,7 @@ def create_token():
     password_byte = bytes(password, 'utf-8')
     # hash_password = bcrypt.hashpw(password_byte)
     if bcrypt.checkpw(password_byte, user.password.encode('utf-8')):
-        return {'token': create_access_token(identity=user.email)}, 200
+        return {'token': create_access_token(identity=user.email, expires_delta=timedelta(hours=3))}, 200
     return {'message': 'you can not access'}, 501
 
 
