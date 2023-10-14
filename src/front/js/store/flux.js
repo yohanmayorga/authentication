@@ -3,6 +3,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			message: null,
 			user: null,
+			profile: null,
+			token: localStorage.getItem("token") || null,
 			demo: [
 				{
 					title: "FIRST",
@@ -38,7 +40,46 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			loginUser: async (email, password) => {
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/api/token",
+						{
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							body: JSON.stringify({ email, password })
+						})
+					const data = await resp.json()
+					localStorage.setItem("token", data.token)
+					setStore({ token: data.token })
+					getActions().getProfile()
+					return true;
+				} catch (error) {
+					return false
+				}
+			},
 
+			getProfile: async () => {
+				let store = getStore()
+
+				if (!store.token) return console.log("no hay token")
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/api/profile",
+						{
+							method: "GET",
+							headers: {
+								"Content-Type": "application/json",
+								"Authorization": "Bearer " + store.token
+							},
+						})
+					const data = await resp.json()
+					setStore({ profile: data })
+				} catch (error) {
+					showError()
+				}
+
+			},
 
 
 			exampleFunction: () => {

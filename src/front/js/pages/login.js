@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../styles/login.css";
 import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
 
@@ -13,15 +14,23 @@ export const Login = () => {
         });
 
         const { store, actions } = useContext(Context);
-
+        const navigate = useNavigate();
         const [isShow, setIsShown] = useState(false);
 
         async function addUser() {
                 if (user.password == user.password_check) {
                         let created = await actions.createUser(user);
+                        if (created) alert("Usuario registrado")
                 }
                 else {
                         console.log("error")
+                }
+        }
+
+        function loginUser({ email, password }) {
+                let isValid = actions.loginUser(email, password);
+                if (isValid) {
+                        navigate("/");
                 }
         }
 
@@ -60,8 +69,13 @@ export const Login = () => {
                                                 onChange={(e) => setUser({ ...user, password_check: e.target.value })}
                                                 required />
                                 )}
-
-                                <input className="SendButton" type="submit" value={!isShow ? "Login" : "Sign up"} onClick={() => addUser()} />
+                                <input className="SendButton" type="submit" value={!isShow ? "Login" : "Sign up"} onClick={() => {
+                                        if (!isShow) {
+                                                return loginUser();
+                                        } else {
+                                                return addUser();
+                                        }
+                                }} />
                         </form>
                 </div>
         )

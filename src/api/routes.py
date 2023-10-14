@@ -40,12 +40,25 @@ def create_token():
         return {'message': 'parameters missing'}, 400
     user = User.query.filter_by(email=email).one_or_none()
     if user is None:
-        return {'message': "user doesn't exist"}, 400
+        return {'message': "User doesn't exist"}, 400
     password_byte = bytes(password, 'utf-8')
     # hash_password = bcrypt.hashpw(password_byte)
     if bcrypt.checkpw(password_byte, user.password.encode('utf-8')):
         return {'token': create_access_token(identity=user.email)}, 200
-    return {'message': 'you shall no pass'}, 501
+    return {'message': 'you can not access'}, 501
+
+
+@api.route('/profile')
+@jwt_required()
+def get_customer_profile():
+
+    email = get_jwt_identity()
+
+    user = User.query.filter_by(email=email).one_or_none()
+    if user is not None:
+        return user.serialize(), 200
+
+    return {"message": "Not Authorized"}, 401
 
 
 @api.route('/hello', methods=['POST', 'GET'])
