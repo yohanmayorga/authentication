@@ -80,12 +80,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 						})
 					const data = await resp.json()
 					setStore({ profile: data })
-					console.log(data)
 				} catch (error) {
 					showError()
 				}
 
 			},
+
+			logOut: () => {
+				localStorage.removeItem("token")
+				setStore({ token: null, profile: null })
+			},
+
+
+
+
 
 
 			exampleFunction: () => {

@@ -30,8 +30,7 @@ export const Login = () => {
         function loginUser({ email, password }) {
                 let isValid = actions.loginUser(email, password);
                 if (isValid) {
-                        alert("correcto")
-                        navigate("/");
+                        navigate("/private");
                 }
         }
 

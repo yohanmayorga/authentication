@@ -13,7 +13,7 @@ export const Private = () => {
 
     return (
         <div className="Private">
-            <p>hola</p>
+            <p>hola {store.profile ? store.profile.email : ""}</p>
         </div>
     )
 };
