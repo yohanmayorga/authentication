@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
+import "../../styles/private.css";
 
 export const Private = () => {
 
@@ -13,7 +14,7 @@ export const Private = () => {
 
     return (
         <div className="Private">
-            <p>hola {store.profile ? store.profile.email : ""}</p>
+            <h1>hola {store.profile ? store.profile.email : ""}</h1>
         </div>
     )
 };

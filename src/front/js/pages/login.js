@@ -6,6 +6,10 @@ import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
 
+        useEffect(() => {
+                store.token && navigate("/private");
+        });
+
         const [user, setUser] = useState({
                 email: "",
                 password: "",

@@ -10,13 +10,8 @@ export const Navbar = () => {
 		<nav className="navbar navbar-light bg-light">
 			<div className="container">
 				<Link to="/">
-					<span className="navbar-brand mb-0 h1">React Boilerplate {store.profile ? store.profile.user : ""}</span>
+					<span className="navbar-brand mb-0 h1">React Boilerplate</span>
 				</Link>
-				<div className="ml-auto">
-					<Link to="/demo">
-						<button className="btn btn-primary">Check the Context in action</button>
-					</Link>
-				</div>
 				<ul className="navbar-nav ms-auto mb-2 mb-lg-0">
 					{
 						!store.token && <>
