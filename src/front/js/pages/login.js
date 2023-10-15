@@ -23,8 +23,8 @@ export const Login = () => {
 
         async function addUser() {
                 if (user.password == user.password_check) {
-                        let created = await actions.createUser(user);
-                        if (created) alert("Usuario registrado")
+                        let created = await actions.createUser(user)
+                        if (created) { alert("User registered successfully") }
                 }
                 else {
                         console.log("error")
